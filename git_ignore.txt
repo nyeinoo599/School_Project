@@ -1,5 +1,5 @@
 *.zip
 *.jpg
 *.png
-git_ignore.txt
-img
+.git_ignore.txt
+img/
