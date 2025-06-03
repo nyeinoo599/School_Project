@@ -50,8 +50,8 @@ public class Server {
 //         System.out.println("client connected");
 
 // sending data
-InputStreamReader in = new InputStreamReader(s.getInputStream);
-BufferedReader bf = new BufferedReader(in);
+// InputStreamReader in = new InputStreamReader(s.getInputStream);
+// BufferedReader bf = new BufferedReader(in);
 
 // String str = bf.readLine();
 // System.out.println("client : "+ str);
