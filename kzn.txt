@@ -1,1 +1,10 @@
 kyaw zin nyein
+
+
+
+git remote set-url origin https://gittoken@github.com/username/repository
+
+
+
+
+nyeinoo599/School_Project
