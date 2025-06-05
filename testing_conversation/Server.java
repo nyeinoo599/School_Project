@@ -1,60 +1,47 @@
-// First Method
-
 import java.io.*;
 import java.net.*;
+import java.util.*;
 
 public class Server {
-
-    private static final String SERVER_IP = "192.168.1.10"; // Replace with PC.A's IP
-    private static final int SERVER_PORT = 5000;
+    private static final int PORT = 12345;
 
     public static void main(String[] args) {
-        try (
-            Socket socket = new Socket(SERVER_IP, SERVER_PORT);
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-        ) {
-            // Send request to server
-            String requestMessage = "Client " + InetAddress.getLocalHost().getHostName() + " requests access";
-            out.println(requestMessage);
-            System.out.println("Sent request: " + requestMessage);
+        System.out.println("🔒 Server started on port " + PORT + ". Waiting for connections...");
+        Scanner scanner = new Scanner(System.in);
 
-            // Wait for response
-            String response = in.readLine();
-            System.out.println("Server response: " + response);
+        try (ServerSocket serverSocket = new ServerSocket(PORT)) {
+            while (true) {
+                Socket socket = serverSocket.accept();
+                // System.out.println("\n📥 IP address ?: " + socket.getInetAddress());
 
-            if ("APPROVED".equalsIgnoreCase(response)) {
-                System.out.println("You are approved to continue.");
-                // Example: Launch Notepad (Windows only)
-                Runtime.getRuntime().exec("notepad");
-            } else {
-                System.out.println("Access denied by server.");
+                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+
+                String clientName = in.readLine();
+                if (clientName == null) {
+                    System.out.println("⚠️ Client disconnected before sending name.");
+                    socket.close();
+                    continue;
+                }
+
+                System.out.println("🔔 Access request from: " + clientName);
+                System.out.print("Approve " + clientName + "? (yes/no): ");
+                String decision = scanner.nextLine().trim().toLowerCase();
+
+                if (decision.equals("yes")) {
+                    out.println("APPROVED");
+                    out.println("Welcome, " + clientName + "! You are now connected to the server.");
+                    System.out.println("✅ " + clientName + " approved.");
+                } else {
+                    out.println("DECLINED");
+                    System.out.println("❌ " + clientName + " declined.");
+                }
+
+                socket.close();
+                System.out.println("🔌 Connection closed with " + clientName);
             }
-
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Server Error: " + e.getMessage());
         }
     }
 }
-
-
-//  second Method
-// import java.net.*;
-// import java.io.*;
-
-// public class  Server {
-//     public static void main (String [] args) thorws IOException{
-//         ServerSocket s = new ServerSocket(122);
-//         Socket s = s.accept();
-
-//         System.out.println("client connected");
-
-// sending data
-// InputStreamReader in = new InputStreamReader(s.getInputStream);
-// BufferedReader bf = new BufferedReader(in);
-
-// String str = bf.readLine();
-// System.out.println("client : "+ str);
-//     }
-    
-// }

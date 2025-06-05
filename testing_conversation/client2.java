@@ -1,12 +1,12 @@
 import java.io.*;
 import java.net.*;
 
-public class client {
-    private static final String SERVER_IP = "192.168.100.8"; // 🔧 Change this
+public class client2 {
+    private static final String SERVER_IP = "192.168.100.8"; // 
     private static final int SERVER_PORT = 12345;
 
     public static void main(String[] args) {
-        String clientName = "Client"; 
+        String clientName = "client 2"; // 
 
         try (
             Socket socket = new Socket(SERVER_IP, SERVER_PORT);
@@ -15,7 +15,7 @@ public class client {
         ) {
             System.out.println("🔌 Connected to server at " + SERVER_IP + ":" + SERVER_PORT);
 
-            out.println(clientName); 
+            out.println(clientName); // Send name
 
             String response = in.readLine();
             if (response == null) {
