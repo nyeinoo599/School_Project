@@ -1,4 +1,6 @@
 module com.metro_12a_group2_project {
+    requires java.sql;
+
     requires javafx.controls;
     requires javafx.fxml;
     requires transitive javafx.graphics;
