@@ -14,7 +14,7 @@ public class PrimaryController {
 
     @FXML
     public void initialize(){
-
+        
     }
 
     @FXML
